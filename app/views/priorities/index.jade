@@ -1,0 +1,26 @@
+extends ../shared/template
+
+block content
+  h1 Priorities
+
+  form(method='POST', action='/priorities')
+    input(type='text', name='name', placeholder='Name', autofocus=true)
+    label Pick A Color
+    input(type='color', name='color')
+    button Add
+
+  table
+    thead
+      tr
+        th Name
+        th Color
+        th Delete
+    tbody
+      each priority in priorities
+        tr(style='background-color: #{priority.color}')
+          td= priority.name
+          td= priority.color
+          td
+            form(method='POST', action='/priorities/#{priority._id}')
+              input(type='hidden', name='_method', value='DELETE')
+              button.fa.fa-trash-o
